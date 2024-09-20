@@ -23,8 +23,78 @@
      <height>23</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>系统设置</string>
+    </property>
+    <widget class="QMenu" name="menu_2">
+     <property name="title">
+      <string>语言切换</string>
+     </property>
+     <addaction name="action_Simplified_Chinese"/>
+     <addaction name="action_Traditional_Chinese"/>
+     <addaction name="action_English"/>
+    </widget>
+    <addaction name="action_exit"/>
+    <addaction name="separator"/>
+    <addaction name="menu_2"/>
+   </widget>
+   <addaction name="menu"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="action_Simplified_Chinese">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>简体中文</string>
+   </property>
+  </action>
+  <action name="action_Traditional_Chinese">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>繁体中文</string>
+   </property>
+  </action>
+  <action name="action_exit">
+   <property name="text">
+    <string>退出</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="action_English">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>English</string>
+   </property>
+   <property name="toolTip">
+    <string>English</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

@@ -22,3 +22,15 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+TRANSLATIONS += \
+    i18n/MyTool_en_US.ts \
+    i18n/MyTool_zh_CN.ts \
+    i18n/MyTool_zh_TW.ts
+
+
+DISTFILES +=
+
+RESOURCES += \
+    i18n/qm.qrc
+

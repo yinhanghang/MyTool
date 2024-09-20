@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>MyTool_en_US.qm</file>
+        <file>MyTool_zh_CN.qm</file>
+        <file>MyTool_zh_TW.qm</file>
+    </qresource>
+</RCC>
