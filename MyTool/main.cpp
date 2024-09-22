@@ -1,31 +1,28 @@
 #include "mainwindow.h"
-  #include <QSettings>
 #include <QApplication>
-  #include <QTranslator>
+
+#include "config.h"
+QTranslator translator;// 全局翻译器对象
+Config config;// 全局配置对象
 int main(int argc, char *argv[])
 {
+    QString language;
+
     QApplication a(argc, argv);
-
-    // 创建翻译器对象
-    QTranslator translator;
-    // // 设置默认语言
-    // QString language = "en"; // 假设默认为英语
-
-    // // 从配置文件或系统设置中读取用户首选语言
-    // // 例如，使用 QSettings 读取用户设置
-    // QSettings settings;
-    // language = settings.value("Language", language).toString();
-
-    // // 根据读取的语言加载翻译文件
-    // if (translator.load(QLocale(language), QLatin1String("MyApp"),
-    //                     QLatin1String("_"), QLatin1String(":/translations"))) {
-    //     a.installTranslator(&translator);
-    // }
-
-
-
-//需要添加代码，读取配置项，判断加载那种语言
-    translator.load(":/MyTool_zh_CN.qm");
+    config.RW_Default_settings();
+    config.APPINFO();
+    language=config.settings.value("i18n/language").toString();
+    if(language=="zh_CN")
+    {
+        translator.load(":/MyTool_zh_CN.qm");
+    }else if(language=="zh_TW")
+    {
+        translator.load(":/MyTool_zh_TW.qm");
+    }
+    else if(language=="en_US")
+    {
+        translator.load(":/MyTool_en_US.qm");
+    }
     a.installTranslator(&translator);
     MainWindow w;
     w.show();

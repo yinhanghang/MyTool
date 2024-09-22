@@ -26,34 +26,13 @@ ui文件，双击打不开，右键选择打开方式，选择对应版本的设
 
 ​	vs的相关文件在生成时会自动屏蔽
 
-#### 版本0.0.2
+#### 版本0.0.4
 
-工具栏
-	在ui界面添加工具栏
-​	1.语言切换
-		简体中文 
-		繁体中文
-		英文
-
-​	2.退出
-
-状态条
-​	版本号
-
-​	时间
+##### 1.添加更新相关  
+###### 1.1 从网站下载ini文件，比较当前文件版本
+        
 
 
 
-问题1：
-创建变量在类的.h文件还是在.cpp文件
-	QLabel * statuLabel_time;//私有变量
-	statuLabel_time=new QLabel();
-	
-	QLabel  *statuLabel_version=new QLabel("版本");
 
-小技巧：
-	在使用ui界面添加label时，在代码里面不需要引入Qlabel 
-	界面的工具栏不显示,重新构建项目
-	修改完ui界面
 
-	F:\chengxu\qt\MyTool\MyTool\mainwindow.cpp:1: warning: C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失

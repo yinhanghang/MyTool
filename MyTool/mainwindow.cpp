@@ -1,9 +1,8 @@
-#include "mainwindow.h"
+﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
-
-#define VERSION "V 0.0.2"
-
-
+#include "config.h"
+extern QTranslator translator;
+extern Config config;
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -15,28 +14,26 @@ MainWindow::MainWindow(QWidget *parent)
     languageAlignmentGroup->addAction(ui->action_Simplified_Chinese);
     languageAlignmentGroup->addAction(ui->action_Traditional_Chinese);
     //判断配置文件选择语言
-    // ui->action_English->setChecked(true);
-    //根据选择调用对应的翻译文件
-    m_QTranslator =new QTranslator(this);
-    if(ui->action_English->isChecked())
+    QString language;
+    language=config.settings.value("i18n/language").toString();
+    if(language=="zh_CN")
     {
-        m_QTranslator->load("MyTool_en_US.qm");
-        //修改配置文件语言
-    }else if(ui->action_Traditional_Chinese->isChecked())
+        ui->action_Simplified_Chinese->setChecked(true);
+    }else if(language=="zh_TW")
     {
-        m_QTranslator->load("MyTool_zh_TW.qm");
-    }else if(ui->action_Simplified_Chinese->isChecked())
-    {
-        m_QTranslator->load("MyTool_zh_CN.qm");
+        ui->action_Traditional_Chinese->setChecked(true);
     }
-    qApp->installTranslator(m_QTranslator);
-    ui->retranslateUi(this);
+    else if(language=="en_US")
+    {
+        ui->action_English->setChecked(true);
+    }
+
     //状态栏添加子控件
     //显示版本
     QLabel  *statuLabel_version=new QLabel("版本");
     statuLabel_version->setMinimumWidth(50);
     statuLabel_version->setAlignment(Qt::AlignHCenter);//水平居中
-    statuLabel_version->setText(VERSION);
+    statuLabel_version->setText(QCoreApplication::applicationVersion());
     ui->statusbar->addWidget(statuLabel_version);
     //显示时间
     statuLabel_time=new QLabel();
@@ -49,10 +46,6 @@ MainWindow::MainWindow(QWidget *parent)
     QTimer *timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &MainWindow::showTime);
     timer->start(1000);
-
-
-
-
 }
 
 MainWindow::~MainWindow()
@@ -62,24 +55,30 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_action_Simplified_Chinese_triggered()
 {
-    m_QTranslator->load(":/MyTool_zh_CN.qm");
-    qApp->installTranslator(m_QTranslator);
+    translator.load(":/MyTool_zh_CN.qm");
+    qApp->installTranslator(&translator);
+    config.settings.setValue("i18n/language", "zh_CN"); // 设置键名  值名
+    config.settings.sync(); // 立即保存设置
     ui->retranslateUi(this);
 }
 
 
 void MainWindow::on_action_Traditional_Chinese_triggered()
 {
-    m_QTranslator->load(":/MyTool_zh_TW.qm");
-    qApp->installTranslator(m_QTranslator);
+    translator.load(":/MyTool_zh_TW.qm");
+    qApp->installTranslator(&translator);
+    config.settings.setValue("i18n/language", "zh_TW"); // 设置键名  值名
+    config.settings.sync(); // 立即保存设置
     ui->retranslateUi(this);
 }
 
 
 void MainWindow::on_action_English_triggered()
 {
-    m_QTranslator->load(":/MyTool_en_US.qm");
-    qApp->installTranslator(m_QTranslator);
+    translator.load(":/MyTool_en_US.qm");
+    qApp->installTranslator(&translator);
+    config.settings.setValue("i18n/language", "en_US"); // 设置键名  值名
+    config.settings.sync(); // 立即保存设置
     ui->retranslateUi(this);
 }
 
@@ -94,10 +93,6 @@ void MainWindow::showTime()
     QDateTime  time = QDateTime ::currentDateTime();
     QString text;
     text = time.toString(tr("yyyy-MM-dd hh:mm:ss"));
-    // if ((time.time().second() % 2) == 0)
-    //     text = time.toString(tr("yyyy-MM-dd hh:mm:ss"));
-    // else
-    //     text = time.toString(tr("yyyy-MM-dd hh:mmss"));
     statuLabel_time->setText(text);
 }
 
